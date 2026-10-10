@@ -1,0 +1,10 @@
+{
+  "name": "alhijjab-marketing",
+  "private": true,
+  "scripts": {
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
