@@ -75,8 +75,8 @@ const PURPOSES = ['For Sale', 'For Rent'];
  *                 specific property lies within Islamabad Capital Territory.
  */
 const SECTORS = [
-  'Blue Area', 'D-12', 'E-7', 'E-11',
-  'F-5', 'F-6', 'F-7', 'F-8', 'F-9', 'F-10', 'F-11',
+  'Blue Area', 'C-14', 'C-15', 'C-16', 'D-12', 'D-13', 'E-7', 'E-11', 'E-12',
+  'F-5', 'F-6', 'F-7', 'F-8', 'F-10', 'F-11', 'F-13', 'F-14',
   'G-5', 'G-6', 'G-7', 'G-8', 'G-9', 'G-10', 'G-11', 'G-12', 'G-13', 'G-14', 'G-15', 'G-16',
   'H-8', 'H-9', 'H-10', 'H-11', 'H-12', 'H-13',
   'I-8', 'I-9', 'I-10', 'I-11', 'I-12', 'I-14', 'I-15', 'I-16',
@@ -1067,6 +1067,9 @@ footer .copy{border-top:1px solid rgba(255,255,255,.12);margin-top:28px;padding-
 .hint{font-size:.8rem;color:var(--muted);margin:6px 0 0}
 .check{display:flex;gap:10px;align-items:flex-start;font-size:.92rem;cursor:pointer}
 .check input{width:20px;height:20px;margin-top:2px;accent-color:var(--emerald);flex:none}
+.pw-wrap{position:relative}
+.pw-wrap .input{padding-right:78px}
+.pw-toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);min-height:34px;padding:0 12px;border:1px solid var(--line);border-radius:10px;background:var(--white);color:var(--emerald);font:600 .8rem var(--sans);cursor:pointer}
 .confirm-box{background:#fff6e5;border:1px solid #e9cf96;border-radius:12px;padding:14px}
 .img-list{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
 .img-item{position:relative;width:96px;height:72px;border-radius:10px;overflow:hidden;background:var(--cream)}
@@ -1451,7 +1454,7 @@ function officePage(n) {
       <h2 style="font-size:2.2rem">Office Login</h2>
       <hr class="rule">
       <form id="login-form" style="margin-top:26px;display:grid;gap:16px" autocomplete="on">
-        <div><label class="f" for="pw">Password</label><input class="input" id="pw" name="password" type="password" autocomplete="current-password" required maxlength="256"></div>
+        <div><label class="f" for="pw">Password</label><div class="pw-wrap"><input class="input" id="pw" name="password" type="text" autocomplete="current-password" autocapitalize="off" autocorrect="off" spellcheck="false" required maxlength="256"><button class="pw-toggle" id="pw-toggle" type="button" aria-label="Hide password" aria-pressed="true">Hide</button></div></div>
         <div id="login-err" class="form-err" hidden></div>
         <button class="btn btn-primary" type="submit" id="login-btn">Log In</button>
       </form>
@@ -1570,6 +1573,16 @@ function officeApp() {
       else { show('login'); $('#pw').focus(); }
     }).catch(function (e) { show('login'); toast(e.message, true); });
   }
+
+  // Show / hide password (visible by default while typing)
+  $('#pw-toggle').addEventListener('click', function () {
+    var pw = $('#pw'), visible = pw.type === 'text';
+    pw.type = visible ? 'password' : 'text';
+    this.textContent = visible ? 'Show' : 'Hide';
+    this.setAttribute('aria-label', visible ? 'Show password' : 'Hide password');
+    this.setAttribute('aria-pressed', visible ? 'false' : 'true');
+    pw.focus();
+  });
 
   // Login
   $('#login-form').addEventListener('submit', function (e) {
