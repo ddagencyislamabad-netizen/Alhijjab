@@ -1,5 +1,5 @@
 {
-  "name": "alhijjab-marketing", "version": "1.1.0",
+  "name": "alhijjab-marketing", "version": "1.1.1",
   "private": true,
   "scripts": {
     "start": "node index.js"
